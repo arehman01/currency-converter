@@ -1,28 +1,7 @@
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
 var rates = {}
-var saved_rates = getCookie("rates");
+var saved_rates = localStorage.getItem("rates");
 if(saved_rates) {
     rates = JSON.parse(saved_rates);
-    setCookie("rates", saved_rates, 365);
 } else {
 	$('#currency-warning').css('display', 'block').slideDown();
     rates = {
@@ -34,7 +13,7 @@ if(saved_rates) {
         aed: 42.44,
         pkr: 1
     };
-    setCookie("rates", JSON.stringify(rates), 15);
+	localStorage.setItem("rates", JSON.stringify(rates));
 }
 
 $.each( rates, function( cur, rate ){
@@ -47,7 +26,7 @@ $("#currency-form").on("submit", function(e){
 	$.each( rates, function( cur, rate ){
 		rates[cur] = parseFloat($( "#cur-" + cur ).val());
 	});
-	setCookie("rates", JSON.stringify(rates), 365);
+	localStorage.setItem("rates", JSON.stringify(rates))
 	$("#tick").addClass('appear');
 	$('#currency-warning').css('display', 'none').slideUp();
 	setTimeout(function(){
