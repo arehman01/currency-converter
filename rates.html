@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rates</title>
+</head>
+<body>
+  <div id="us">
+    <h1>Rates for US/CA</h1>
+  </div>
+  <div id="uk">
+    <h1>Rates for UK</h1>
+  </div>
+<script type="text/javascript" src="assets/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+function copyToClipboard(text) {
+  var input = document.createElement("input");
+  document.body.appendChild(input);
+  input.value = text;
+  input.select();
+  document.execCommand("copy");
+  document.body.removeChild(input);
+} 
+</script>
+
+<script type="text/javascript">
+var usDiv = $("#us");
+var p = "<p>1 Kg: " + 3250 + "</p>";
+var price = 3250;
+usDiv.append(p);
+for (let i = 2; i < 301; i++) {
+  price = ((i-1) * 595) + 3250;
+  var p = "<p data-value='"+ price +"'>" + i + " Kg: " + price + "</p>";
+  usDiv.append(p);
+}
+$("body").click(function(e) {
+  var el = $(e.target);
+  copyToClipboard(el.data("value"));
+  $(e.target).toggleClass("active");
+});
+</script>
+<style type="text/css">
+p{
+  padding: 10px 15px;
+  font-size: 18px;
+  margin: 0px;
+}
+p.active{
+  background-color: #900;
+  color: #fff;
+}
+p:hover{
+  background-color: #ddd;
+}
+</style>
+</body>
+</html>

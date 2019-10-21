@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Currency Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Currency Converter</h1>
+    <div role="tabpanel">
+      <!-- Nav tabs -->
+      <!-- 
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#converter" aria-controls="converter" role="tab" data-toggle="tab">Converter</a>
+          </li>
+          <li role="presentation" class="pull-right">
+            <a href="#configuration" aria-controls="configuration" role="tab" data-toggle="tab">Configuration</a>
+          </li>
+        </ul> -->
+        
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="converter">
+            <form id="converter-form" class="clearfix" action="">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="price">Product Price</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" id="price" class="form-control" name="price" placeholder="e.g: 1200" required="" />
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="stitching">Stitching (per piece)</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" id="stitching" class="form-control" name="stitching" placeholder="e.g: 500" />
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" id="quantity" class="form-control" name="quantity" placeholder="e.g: 20" value="1" required="" />
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="weight">Weight (in kg)</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" id="weight" class="form-control" name="weight" placeholder="e.g: 0.5" />
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-success pull-right">Convert</button>
+            </form>
+            
+            <div class="table-responsive table-margin">
+              <table class="table table-bordered text-center">
+                <thead>
+                  <tr style="background-color: #f9f9f9">
+                    <td style="border-bottom: none">PRICE</td>
+                    <td style="border-bottom: none">STITCHING</td>
+                    <td style="border-bottom: none">QTY</td>
+                    <td style="border-bottom: none">WEIGHT</td>
+                  </tr>
+                </thead>
+                <tbody id="details-body">
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-responsive">
+              <table id="stitched-table" class="table table-bordered text-center">
+                <tbody>
+                  <tr style="background-color: #f9f9f9">
+                    <th class="text-center" colspan="7">Price Stitched with Free Shipping</th>
+                  </tr>
+                  <tr class="bg-primary" style="font-weight: 600">
+                    <td>USA (&dollar;)</td>
+                    <td>UK (&pound;)</td>
+                    <td>IND (&#8377;)</td>
+                    <td>BAN (&#2547;)</td>
+                    <td>LKA (&#x20a8;)</td>
+                    <td>UAE (&#x62f;&#x2e;&#x625;)</td>
+                    <td>PAK (&#x20a8;)</td>
+                  </tr>
+                  <tr id="stitched-row">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-bordered text-center">
+                <tbody>
+                  <tr style="background-color: #f9f9f9">
+                    <th class="text-center" colspan="7">Price Unstitched with Free Shipping</th>
+                  </tr>
+                  <tr class="bg-primary" style="font-weight: 600">
+                    <td>USA (&dollar;)</td>
+                    <td>UK (&pound;)</td>
+                    <td>IND (&#8377;)</td>
+                    <td>BAN (&#2547;)</td>
+                    <td>LKA (&#x20a8;)</td>
+                    <td>UAE (&#x62f;&#x2e;&#x625;)</td>
+                    <td>PAK (&#x20a8;)</td>
+                  </tr>
+                  <tr id="unstitched-row">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div role="tabpanel" class="tab-pane" id="configuration">
+            <h4>Currency Rates (in PKR)</h4>
+            <form id="currency-form" action="">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-usd">USD</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-usd" id="cur-usd" class="form-control" required="">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-gbp">GBP</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-gbp" id="cur-gbp" class="form-control" required="">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-inr">INR</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-inr" id="cur-inr" class="form-control" required="">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-bdt">BDT</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-bdt" id="cur-bdt" class="form-control" required="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-lkr">LKR</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-lkr" id="cur-lkr" class="form-control" required="">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="cur-aed">AED</label>
+                    <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-aed" id="cur-aed" class="form-control" required="">
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="assets/bootstrap.min.js"></script>
+    <script src="assets/main.js"></script>
+    <style type="text/css">
+      .clearfix:after{
+        content: "";
+        display: block;
+        clear: both;
+      }
+      h1{
+        margin: 50px 0;
+      }
+      .table{
+        margin-bottom: 30px;
+      }
+      .tab-pane{
+        padding: 20px 0;
+      }
+      .table-margin{
+        margin-top: 30px;
+      }
+      .btn{
+        padding: 8px 36px;
+        font-weight: bold;
+      }
+      #stitched-table{
+        display: none;
+      }
+      #currency-form{
+        margin-top: 30px;
+      }
+    </style>
+  </body>
+  </html>
