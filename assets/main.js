@@ -22,15 +22,16 @@ var rates = {}
 var saved_rates = getCookie("rates");
 if(saved_rates) {
     rates = JSON.parse(saved_rates);
-    setCookie("rates", saved_rates, 15);
+    setCookie("rates", saved_rates, 365);
 } else {
+	$('#currency-warning').css('display', 'block').slideDown();
     rates = {
-        usd: 122,
-        gbp: 160,
-        inr: 1.7,
-        bdt: 1.33,
-        lkr: 0.71,
-        aed: 30,
+        usd: 156,
+        gbp: 202,
+        inr: 2.2,
+        bdt: 1.84,
+        lkr: 0.86,
+        aed: 42.44,
         pkr: 1
     };
     setCookie("rates", JSON.stringify(rates), 15);
@@ -38,6 +39,20 @@ if(saved_rates) {
 
 $.each( rates, function( cur, rate ){
     $( "#cur-" + cur ).val(rate);
+});
+
+$("#currency-form").on("submit", function(e){
+	e.preventDefault();
+
+	$.each( rates, function( cur, rate ){
+		rates[cur] = parseFloat($( "#cur-" + cur ).val());
+	});
+	setCookie("rates", JSON.stringify(rates), 365);
+	$("#tick").addClass('appear');
+	$('#currency-warning').css('display', 'none').slideUp();
+	setTimeout(function(){
+		$("#tick").removeClass('appear');
+	}, 3000);
 });
 
 var form = {};

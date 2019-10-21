@@ -10,17 +10,18 @@
 <body>
   <div class="container">
     <h1 class="text-center">Currency Converter</h1>
+    <div id="currency-warning" class="alert alert-warning" role="alert"><strong>Check rates!</strong> Saved currency rates not found, using default rates.</div>
     <div role="tabpanel">
       <!-- Nav tabs -->
-      <!-- 
+
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active">
             <a href="#converter" aria-controls="converter" role="tab" data-toggle="tab">Converter</a>
           </li>
-          <li role="presentation" class="pull-right">
+          <li role="presentation">
             <a href="#configuration" aria-controls="configuration" role="tab" data-toggle="tab">Configuration</a>
           </li>
-        </ul> -->
+        </ul>
         
         <!-- Tab panes -->
         <div class="tab-content">
@@ -170,9 +171,15 @@
                     <label for="cur-aed">AED</label>
                     <input pattern="^[0-9]\d*(\.\d+)?$" type="text" name="cur-aed" id="cur-aed" class="form-control" required="">
                   </div>
+                  <input pattern="^[0-9]\d*(\.\d+)?$" type="hidden" name="cur-pkr" id="cur-pkr" class="form-control" required="" value="1">
                 </div>
               </div>
+
               <button type="submit" class="btn btn-success">Update</button>
+              <svg id="tick" class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7C514.5,101.703,514.499,85.494,504.502,75.496z"/>
+             </svg>
+             
             </form>
           </div>
         </div>
@@ -208,6 +215,27 @@
       }
       #currency-form{
         margin-top: 30px;
+      }
+      #tick {
+        width: 20px;
+        margin: 0px 0 0 10px;
+        vertical-align: middle;
+        fill: #5cb85c;
+        stroke: #5cb85c;
+        stroke-width: 10px;
+        opacity: 0;
+        transform: rotate(-6deg) translateX(-14px);
+        transition: all 0.2s ease-out;
+      }
+      #tick.appear {
+        opacity: 1;
+        transform: rotate(5deg) translateX(10px);
+      }
+      #currency-warning {
+        display: none;
+        max-width: 990px;
+        margin-left: auto;
+        margin-right: auto;
       }
     </style>
   </body>
